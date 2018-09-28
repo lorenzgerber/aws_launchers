@@ -1,0 +1,27 @@
+#cloud-config
+
+runcmd:
+  -  'sudo locale-gen en_SG.UTF-8'
+  -  'sudo apt-get update'
+  -  'sudo apt-get -y upgrade'
+  -  'sudo apt-get -y install gcc make libtool libhwloc-dev libx11-dev libxt-dev libedit-dev libical-dev ncurses-dev perl postgresql-server-dev-all python-dev tcl-dev tk-dev swig libexpat-dev libssl-dev libxext-dev autoconf automake'
+  -  'sudo apt-get -y install expat libedit2 postgresql python sendmail-bin sudo tcl tk libical1a default-jre-headless default-jdk-headless'
+  -  'cd /home/ubuntu'
+  -  'sudo su ubuntu -c "mkdir git"'
+  -  'cd git'
+  -  'sudo su ubuntu -c "git clone https://github.com/PBSPro/pbspro.git"'
+  -  'cd pbspro'
+  -  'sudo su ubuntu -c "./autogen.sh"'
+  -  'sudo su ubuntu -c "./configure --prefix=/opt/pbs"'
+  -  'sudo su ubuntu -c make'
+  -  'sudo make install'
+  -  'sudo /opt/pbs/libexec/pbs_postinstall'
+  -  'sudo sed -i "s/0/1/g" /etc/pbs.conf'
+  -  'sudo chmod 4755 /opt/pbs/sbin/pbs_iff /opt/pbs/sbin/pbs_rcp'
+  -  'sudo /etc/init.d/pbs start'
+  -  'sudo su ubuntu -c "source /etc/profile.d/pbs.sh"'
+  -  'cd /home/ubuntu/git/'
+  -  'sudo su ubuntu -c "git clone https://github.com/lorenzgerber/nextflow.git"'
+  -  'cd nextflow'
+  -  'sudo su ubuntu -c "./compile.sh"'
+

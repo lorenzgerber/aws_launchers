@@ -1,0 +1,22 @@
+#cloud-config
+repo_update: true
+repo_upgrade: true
+
+packages:
+ - git
+ - vim
+ - docker
+ 
+runcmd:
+  -  'sudo usermod -a -G docker ec2-user'
+  -  'cd home/ec2-user'
+  -  'sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose'
+  -  'sudo chmod +x /usr/local/bin/docker-compose'
+  -  'ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'
+  -  'sudo service docker start'
+  -  'sudo su ec2-user -c "mkdir git"'
+  -  'cd git'
+  -  'sudo su ec2-user -c "git clone -b test_no_ui https://github.com/lorenzgerber/beacon-ui-elixir.git"'
+  -  'cd beacon-ui-elixir'
+  -  'aws configure set region ap-southeast-1'
+  -  'aws s3 cp s3://data.beacon/sg10k.tar.gz /home/ec2-user/git/beacon-ui-elixir/deploy/beacon/beacon_db/'
