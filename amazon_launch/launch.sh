@@ -14,6 +14,8 @@ only_ssh=sg-0c341a85d70187c3e
 # t2.micro
 # t2.small
 # t2.medium
+# t3.micro / small medium
+# m5.xlarge
 
 latest_ami=$(aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --region ap-southeast-1 --query 'Parameters[0].[Value]' --output text) 
 
@@ -26,4 +28,4 @@ aws ec2 run-instances \
     --iam-instance-profile Name=gerber \
     --instance-type t2.micro \
     --user-data file://cloudinit.txt \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=MASCHINE},{Key=owner,Value=lorenz},{Key=type,Value=beacon-ui}]'
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=operams},{Key=owner,Value=lorenz},{Key=type,Value=operams}]'
