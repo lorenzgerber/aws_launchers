@@ -26,6 +26,6 @@ aws ec2 run-instances \
     --subnet-id $sub_c \
     --security-group-ids $only_ssh \
     --iam-instance-profile Name=gerber \
-    --instance-type t2.micro \
+    --instance-type t2.medium \
     --user-data file://cloudinit.txt \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=operams},{Key=owner,Value=lorenz},{Key=type,Value=operams}]'
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=generic},{Key=owner,Value=lorenz},{Key=type,Value=generic}]'
