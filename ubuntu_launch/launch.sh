@@ -2,13 +2,12 @@
 
 
 # Subnets
-sub_a=subnet-1760e573
-sub_b=subnet-861ca8f0
-sub_c=subnet-6c9f8d2a
+sub_a=subnet-5569971c
+sub_b=subnet-50448f37
+sub_c=subnet-ca52658c
 
 # Security group ids:
-ssh_and_web=sg-09f1cf4bbbc408158
-only_ssh=sg-0c341a85d70187c3e
+only_ssh=sg-02fb2cce133f18075
 
 # Some instance types:
 # t2.micro
@@ -23,11 +22,11 @@ latest_ami=$(aws ec2 describe-images  --filters Name=name,Values="ubuntu/images/
 
 aws ec2 run-instances \
     --image-id  $latest_ami \
-    --key gerber \
+    --key gerber_immunoscape \
     --block-device-mapping DeviceName=/dev/sda1,Ebs={VolumeSize=40} \
+    --region ap-southeast-1 \
     --subnet-id $sub_c \
     --security-group-ids $only_ssh \
-    --iam-instance-profile Name=gerber \
     --instance-type t2.medium \
     --user-data file://cloudinit.txt \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=generic},{Key=owner,Value=lorenz},{Key=type,Value=generic}]'
