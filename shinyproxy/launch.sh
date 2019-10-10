@@ -22,11 +22,11 @@ latest_ami=$(aws ec2 describe-images  --filters Name=name,Values="ubuntu/images/
 
 aws ec2 run-instances \
     --image-id  $latest_ami \
-    --key gerber_macbook \
+    --key gerber_immunoscape \
     --block-device-mapping DeviceName=/dev/sda1,Ebs={VolumeSize=40} \
     --region ap-southeast-1 \
     --subnet-id $sub_c \
     --security-group-ids $only_ssh \
     --instance-type t2.medium \
     --user-data file://cloudinit.txt \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=generic},{Key=owner,Value=lorenz},{Key=type,Value=generic}]'
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=shinyproxy},{Key=owner,Value=lorenz},{Key=type,Value=shinyproxy}]'

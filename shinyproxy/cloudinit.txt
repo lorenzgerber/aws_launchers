@@ -5,7 +5,17 @@ package_upgrade: true
 packages:
  - git
  - vim
- 
+
+write_files:
+-   content: |
+      [Service]
+      ExecStart=
+      ExecStart=/usr/bin/dockerd -D -H tcp://127.0.0.1:2375 -H unix://
+      
+    owner: root:root
+    path: /run/override.conf
+    permissions: '0644'
+
 runcmd:
   -  'sudo usermod -aG docker ubuntu'
   -  'sudo apt-get -y remove docker docker-engine docker.io containerd runc'
@@ -18,6 +28,7 @@ runcmd:
   -  'sudo chmod +x /usr/local/bin/docker-compose'
   -  'ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'
   -  'sudo service docker start'
-  -  'cd home/ubuntu'
-  -  'sudo su ubuntu -c "mkdir git"'
-  -  'cd git'
+  -  'mkdir -p /etc/systemd/system/docker.service.d/'
+  -  'cp /run/override.conf /etc/systemd/system/docker.service.d/'
+  -  'systemctl daemon-reload'
+  -  'systemctl restart docker'
