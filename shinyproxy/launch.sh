@@ -27,6 +27,6 @@ aws ec2 run-instances \
     --region ap-southeast-1 \
     --subnet-id $sub_c \
     --security-group-ids $only_ssh \
-    --instance-type t2.medium \
+    --instance-type t3.medium \
     --user-data file://cloudinit.txt \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=shinyproxy},{Key=owner,Value=lorenz},{Key=type,Value=shinyproxy}]'

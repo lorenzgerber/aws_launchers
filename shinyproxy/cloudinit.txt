@@ -17,7 +17,6 @@ write_files:
     permissions: '0644'
 
 runcmd:
-  -  'sudo usermod -aG docker ubuntu'
   -  'sudo apt-get -y remove docker docker-engine docker.io containerd runc'
   -  'sudo apt-get -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common'
   -  'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'
@@ -32,3 +31,4 @@ runcmd:
   -  'cp /run/override.conf /etc/systemd/system/docker.service.d/'
   -  'systemctl daemon-reload'
   -  'systemctl restart docker'
+  -  'sudo usermod -a -G docker ubuntu'
